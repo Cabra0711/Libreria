@@ -1,0 +1,134 @@
+<main class="flex-grow-1" style="margin-left: 240px; padding: 2rem;">
+    <div class="mb-5">
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <span style="color: var(--tech-green); font-size: 0.8rem;">●</span>
+            <span class="text-uppercase tracking-wider small fw-bold" style="color: var(--tech-green);">System Live</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-end">
+            <div>
+                <h1 class="fw-bold mb-1">Prestamos</h1>
+                <p class="text-muted small">Monitor library circulation, track due dates, and manage new book assignments through the high-performance node interface.</p>
+            </div>
+            <div class="d-flex gap-3">
+                <div class="glass-card p-3 d-flex align-items-center gap-3">
+                    <div class="small text-muted">Prestamos Activos</div>
+                    <h3 class="fw-bold m-0" style="color: var(--tech-purple);">1,284</h3>
+                </div>
+                <div class="glass-card p-3 d-flex align-items-center gap-3">
+                    <div class="small text-muted">Retrasados</div>
+                    <h3 class="fw-bold m-0" style="color: var(--tech-red);">12</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="glass-card p-4 border-tech-green-subtle h-100" style="border: 1px solid rgba(52, 211, 153, 0.2);">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="fw-bold m-0">Registar nuevo prestamo</h4>
+                    <i class="bi bi-plus-circle-fill" style="color: var(--tech-green); font-size: 1.5rem;"></i>
+                </div>
+
+                <form>
+                    <div class="mb-4">
+                        <label class="form-label small text-muted-custom fw-bold">SELECCIONAR USUARIO</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-dark border-0 text-white" placeholder="Search by name or ID...">
+                            <span class="input-group-text bg-dark border-0 text-muted"><i class="bi bi-chevron-down"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small text-muted-custom fw-bold">SELECCIONAR LIBRO</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-dark border-0 text-white" placeholder="Title or ISBN...">
+                            <span class="input-group-text bg-dark border-0 text-muted"><i class="bi bi-chevron-down"></i></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-3 mb-5">
+                        <div class="col-6">
+                            <label class="form-label small text-muted-custom fw-bold">FECHA PRESTAMO</label>
+                            <input type="date" class="form-control bg-dark border-0 text-white small" value="2026-04-22">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small text-muted-custom fw-bold">FECHA ENTREGA</label>
+                            <input type="date" class="form-control bg-dark border-0 text-white small">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-execute w-100 py-3 fw-bold text-uppercase tracking-wider">
+                        GUARDAR PRESTAMO
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="glass-card p-0 overflow-hidden">
+                <div class="p-4 d-flex justify-content-between align-items-center bg-dark bg-opacity-25">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-bar-chart-steps" style="color: var(--tech-purple);"></i>
+                        <h5 class="fw-bold m-0">PRESTAMOS ACTUALES HASTA LA FECHA</h5>
+                    </div>
+                </div>
+
+                <table class="table table-tech-v2 align-middle m-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">USUARIo</th>
+                            <th>TITULO LIBRO</th>
+                            <th>FECHA PRESTAMO</th>
+                            <th>RETRASADOS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="avatar-sm bg-info bg-opacity-10 text-info">MC</div>
+                                    <div>
+                                        <div class="fw-bold small">Marcus Chen</div>
+                                        <small class="text-muted" style="font-size: 0.65rem;">ID: USR-415</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-bold small">Neuromancer: 40th Ann...</div>
+                                <small class="text-muted" style="font-size: 0.65rem;">ISBN: 978-0441569595</small>
+                            </td>
+                            <td class="small">Oct 12, 2023</td>
+                            <td class="small">Oct 26, 2023</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="avatar-sm bg-purple bg-opacity-10 text-purple">SJ</div>
+                                    <div>
+                                        <div class="fw-bold small">Sarah Jenkins</div>
+                                        <small class="text-muted" style="font-size: 0.65rem;">ID: USR-109</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-bold small">Architecture of Tomorrow</div>
+                                <small class="text-muted" style="font-size: 0.65rem;">ISBN: 978-1423456789</small>
+                            </td>
+                            <td class="small">Oct 05, 2023</td>
+                            <td class="small text-danger fw-bold">Oct 19, 2023</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="p-3 text-center border-top border-secondary border-opacity-25">
+                    <div class="btn-group gap-2">
+                        <button class="btn btn-outline-secondary btn-sm px-4">Previous</button>
+                        <button class="btn btn-purple btn-sm px-3">1</button>
+                        <button class="btn btn-outline-secondary btn-sm px-3">2</button>
+                        <button class="btn btn-outline-secondary btn-sm px-4">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

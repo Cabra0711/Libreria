@@ -1,0 +1,126 @@
+<main class="flex-grow-1" style="margin-left: 240px; padding: 2rem;">
+    <div class="mb-5">
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <span style="color: var(--tech-green); font-size: 0.8rem;">●</span>
+            <span class="text-uppercase tracking-wider small fw-bold" style="color: var(--tech-green);">Live System Node</span>
+        </div>
+        <h1 class="fw-bold mb-1">Gestión de Usuarios</h1>
+        <p class="text-muted small">Administra la base de datos de miembros, controla privilegios y monitorea la actividad del sistema.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="glass-card p-0 overflow-hidden table-container-custom">
+                <div class="p-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold m-0">Miembros de la Biblioteca</h5>
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-dark text-muted-custom py-2 px-3">482 TOTAL</span>
+                        <span class="badge bg-dark py-2 px-3" style="color: var(--tech-green);">12 ACTIVOS HOY</span>
+                    </div>
+                </div>
+
+                <table class="table table-tech-v2 align-middle m-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">USUARIO</th>
+                            <th>REGISTRO</th>
+                            <th>ESTADO</th>
+                            <th class="text-end pe-4">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="avatar-placeholder"><i class="bi bi-person-fill"></i></div>
+                                    <div>
+                                        <div class="fw-bold" style="color: var(--tech-purple)">Elena Rodriguez</div>
+                                        <small class="text-muted">elena.rod@example.com</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="small">12 Oct 2023</td>
+                            <td><span class="badge badge-tech badge-available">ACTIVO</span></td>
+                            <td class="text-end pe-4 text-muted">
+                                <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-warning"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-info"><i class="bi bi-info-circle"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+                
+                <div class="p-4 d-flex justify-content-between align-items-center border-top border-secondary opacity-75">
+                    <small class="text-muted">Mostrando 4 de 482 usuarios</small>
+                    <div class="btn-group gap-2">
+                        <button class="btn btn-outline-secondary btn-sm rounded px-3">Anterior</button>
+                        <button class="btn btn-outline-secondary btn-sm rounded px-3">Siguiente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="glass-card p-4 border-0" style="background: #1a1a1e;">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="avatar-placeholder bg-dark" style="width: 50px; height: 50px; font-size: 1.5rem;">
+                        <i class="bi bi-person-plus-fill" style="color: var(--tech-purple);"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold m-0">Registrar Nuevo</h5>
+                        <small class="text-muted-custom">DATAFORM MODULE 02</small>
+                    </div>
+                </div>
+
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted-custom fw-bold">NOMBRE COMPLETO</label>
+                        <input type="text" class="form-control bg-dark border-0 text-white p-2" placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted-custom fw-bold">CORREO ELECTRÓNICO</label>
+                        <input type="email" class="form-control bg-dark border-0 text-white p-2" placeholder="juan@example.com">
+                    </div>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <label class="form-label small text-muted-custom fw-bold">CATEGORÍA</label>
+                            <select class="form-select bg-dark border-0 text-white p-2">
+                                <option>Estudiante</option>
+                                <option>Docente</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small text-muted-custom fw-bold">ESTADO INICIAL</label>
+                            <div class="d-flex align-items-center h-100 gap-2">
+                                <span style="color: var(--tech-green);">●</span> <small>ACTIVO</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-confirm-glow w-100 py-3 d-flex align-items-center justify-content-center gap-2">
+                        <i class="bi bi-save2"></i> CONFIRMAR REGISTRO
+                    </button>
+                    <p class="text-center small text-muted-custom mt-3" style="font-size: 0.65rem; letter-spacing: 1px;">
+                        LOS DATOS SERÁN ENCRIPTADOS Y ALMACENADOS EN EL NODO CENTRAL
+                    </p>
+                </form>
+            </div>
+            
+            <div class="row g-3 mt-2">
+                <div class="col-6">
+                    <div class="glass-card text-center p-3">
+                        <h4 class="fw-bold m-0" style="color: var(--tech-green);">98%</h4>
+                        <small class="text-muted" style="font-size: 0.6rem;">RETENCIÓN</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="glass-card text-center p-3">
+                        <h4 class="fw-bold m-0" style="color: var(--tech-blue);">14</h4>
+                        <small class="text-muted" style="font-size: 0.6rem;">NUEVOS/MES</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,125 @@
+<main class="flex-grow-1" style="margin-left: 240px; padding: 2rem;">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="fw-bold mb-0">INVENTARIO DE LIBROS</h1>
+            <p class="text-muted small">Archivo global :: 2,481 volumenes totales</p>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+            <div class="position-relative">
+                <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 opacity-50"></i>
+                <input type="text" class="form-control bg-dark border-0 rounded-pill px-5 text-white" placeholder="Search books..." style="width: 300px;">
+            </div>
+            <button class="btn btn-purple">+ Registrar Nuevo</button>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-9">
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="glass-card text-center p-3">
+                        <small class="text-muted d-block mb-1">LIBROS EN STOCK</small>
+                        <h3 class="fw-bold m-0">1,842</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container-custom">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold m-0"><span style="color: var(--tech-blue);">●</span> TABLA DE INVENTARIO</h5>
+                    <div class="btn-group btn-group-sm bg-dark p-1 rounded">
+                        <button class="btn btn-dark active">TODOS</button>
+                        <button class="btn btn-dark">Disponible</button>
+                        <button class="btn btn-dark">Prestados</button>
+                    </div>
+                </div>
+
+                <table class="table table-tech-v2 align-middle">
+                    <thead class="ba">
+                    <tr>
+                        <th class="ps-4">Titulo De Libro</th>
+                        <th>Autor</th>
+                        <th>ID</th>
+                        <th>ESTADO</th>
+                        <th class="text-end pe-4">ACCIONES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="book-cover-placeholder" style="background: rgba(56, 189, 248, 0.1);">
+                                    <i class="bi bi-book" style="color: var(--tech-blue);"></i>
+                                </div>
+                                <div>
+                                    <div class="book-title-link">Neuromancer</div>
+                                    <small class="text-muted">Science Fiction</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="book-title-link">
+                                William Globson
+                            </div>
+                        </td>
+                        <td class="isbn-text small">978-0441569595</td>
+                        <td><span class="badge rounded-pill badge-tech badge-available">● DISPONIBLE</span></td>
+                        <td class="text-end pe-4 text-muted">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrarModal">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-info"><i class="bi bi-info-circle"></i></button>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="glass-card mb-4 border-start border-tech-purple" style="border-left-width: 4px !important; padding: 1.5rem;">
+                <h6 class="fw-bold mb-3 small opacity-75">SYSTEM ALERTS</h6>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="borrarModaLabel" aria-hidden="true">
+    <div class="modal-dialog glass-card ">
+        <div class="modal-content glass-card ">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-light" id="borrarModalLabel">Seguro que quieres borrar?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>SI BORRAS ESTE USUARIO MAS ADELANTE NO PODRAS RECUPERAR LA INFORMACION GUARDADA</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModaLabel" aria-hidden="true">
+    <div class="modal-dialog glass-card ">
+        <div class="modal-content glass-card ">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-warning" id="editarModalLabel">EDITANDO USUARIO</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>SI BORRAS ESTE USUARIO MAS ADELANTE NO PODRAS RECUPERAR LA INFORMACION GUARDADA</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
