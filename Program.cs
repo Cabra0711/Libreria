@@ -1,12 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Data;
 using Proyecto.Services;
+using Proyecto.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IUserServices, UserService>();
 
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 builder.Services.AddDbContext<MySqlDbContext>(options => 

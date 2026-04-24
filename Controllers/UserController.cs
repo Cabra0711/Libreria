@@ -6,11 +6,6 @@ namespace Proyecto.Controllers;
 
 public class UserController : Controller
 {
-    public IActionResult Login()
-    {
-        return View();
-    }
-    
     public IActionResult Books()
     {
         return View();

@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Data;
 using Proyecto.Models;
+using Proyecto.Services.Interfaces;
 
 namespace Proyecto.Services;
 
-public class UserService
+public class UserService : IUserServices
 {
     // creamos un metodo privado para que mientras el programa este en ejecucion este no puede ser editado
     // donde vamos a traer los parametros del db context
@@ -26,7 +27,7 @@ public class UserService
     }
     //creamos una funcion async para que este le mande una respuesta al usuario al momento que 
     // encuentre la data en la base de datos 
-    public async Task<ServiceResponse<Users>> GetById(int id)
+    public async Task<ServiceResponse<Users?>> GetUserById(int id)
     {
         //llamamos a la respuesta de la db que contiene los parametros del modelo y le pasamos
         // nuestros modelos dentro de este
@@ -53,7 +54,7 @@ public class UserService
         }
     }
     
-    public async Task<ServiceResponse<Users>> Update(Users userEditar)
+    public async Task<ServiceResponse<Users>> Update(Users userEditar, int id)
     {
         var response = new ServiceResponse<Users>();
         var idExiste = await _context.Users.FindAsync(userEditar.Id);
@@ -66,9 +67,9 @@ public class UserService
         }
         else
         {
-            idExiste.Username = userEditar.Username;
+            idExiste.Name = userEditar.Name;
             idExiste.Email = userEditar.Email;
-            idExiste.Password = userEditar.Password;
+            idExiste.Status = userEditar.Status;
             
             _context.Users.Update(idExiste);
             await _context.SaveChangesAsync();
@@ -103,7 +104,7 @@ public class UserService
         }
     }
 
-    public async Task<ServiceResponse<Users>> Delete(Users userBorrar)
+    public async Task<ServiceResponse<Users?>> Delete(Users userBorrar, int id)
     {
         var response = new ServiceResponse<Users>();
         var userExits = await _context.Users.FindAsync(userBorrar.Id);
@@ -117,10 +118,6 @@ public class UserService
         else
         {
             _context.Users.Remove(userExits);
-            userExits.Id = userBorrar.Id;
-            userExits.Username =  userBorrar.Username;
-            userExits.Email = userBorrar.Email;
-            userExits.Password = userBorrar.Password;
             await _context.SaveChangesAsync();
             
             response.Data = userExits;

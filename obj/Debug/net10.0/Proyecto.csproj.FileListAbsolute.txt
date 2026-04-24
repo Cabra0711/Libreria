@@ -103,3 +103,4 @@
 /home/cohorte5/Documentos/Proyecto/obj/Debug/net10.0/compressed/nvf4bqdsjo-{0}-nvkupt79pt-nvkupt79pt.gz
 /home/cohorte5/Documentos/Proyecto/obj/Debug/net10.0/compressed/zpfkda8bw3-{0}-3r8b2a0bt1-3r8b2a0bt1.gz
 /home/cohorte5/Documentos/Proyecto/obj/Debug/net10.0/compressed/g8yuv4fsst-{0}-f379bl32mj-f379bl32mj.gz
+/home/cohorte5/Documentos/Proyecto/obj/Debug/net10.0/Proyecto.sourcelink.json

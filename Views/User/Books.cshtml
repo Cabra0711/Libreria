@@ -9,15 +9,13 @@
                 <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 opacity-50"></i>
                 <input type="text" class="form-control bg-dark border-0 rounded-pill px-5 text-white" placeholder="Search books..." style="width: 300px;">
             </div>
-            <button class="btn btn-purple">+ Registrar Nuevo</button>
         </div>
     </div>
 
     <div class="row g-4">
         <div class="col-lg-9">
             <div class="row g-3 mb-4">
-                <div class="col-md-3">
-                    <div class="glass-card text-center p-3">
+                <div class="col-md-4"> <div class="glass-card text-center p-3">
                         <small class="text-muted d-block mb-1">LIBROS EN STOCK</small>
                         <h3 class="fw-bold m-0">1,842</h3>
                     </div>
@@ -34,91 +32,135 @@
                     </div>
                 </div>
 
-                <table class="table table-tech-v2 align-middle">
-                    <thead class="ba">
-                    <tr>
-                        <th class="ps-4">Titulo De Libro</th>
-                        <th>Autor</th>
-                        <th>ID</th>
-                        <th>ESTADO</th>
-                        <th class="text-end pe-4">ACCIONES</th>
-                    </tr>
+                <table class="table table-responsive table-tech-v2 align-middle">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Titulo De Libro</th>
+                            <th>Autor</th>
+                            <th>ID</th>
+                            <th>ESTADO</th>
+                            <th class="text-end pe-4">ACCIONES</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="ps-4">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="book-cover-placeholder" style="background: rgba(56, 189, 248, 0.1);">
-                                    <i class="bi bi-book" style="color: var(--tech-blue);"></i>
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="book-cover-placeholder" style="background: rgba(56, 189, 248, 0.1);">
+                                        <i class="bi bi-book" style="color: var(--tech-blue);"></i>
+                                    </div>
+                                    <div>
+                                        <div class="book-title-link">Neuromancer</div>
+                                        <small class="text-muted">Science Fiction</small>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="book-title-link">Neuromancer</div>
-                                    <small class="text-muted">Science Fiction</small>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="book-title-link">
-                                William Globson
-                            </div>
-                        </td>
-                        <td class="isbn-text small">978-0441569595</td>
-                        <td><span class="badge rounded-pill badge-tech badge-available">● DISPONIBLE</span></td>
-                        <td class="text-end pe-4 text-muted">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrarModal">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-info"><i class="bi bi-info-circle"></i></button>
-
-                        </td>
-                    </tr>
+                            </td>
+                            <td><div class="book-title-link">William Gibson</div></td>
+                            <td class="isbn-text small">978-0441569595</td>
+                            <td><span class="badge rounded-pill badge-tech badge-available">● DISPONIBLE</span></td>
+                            <td class="text-end pe-4">
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#borrarModal">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarModal">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-info btn-sm"><i class="bi bi-info-circle"></i></button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
         <div class="col-lg-3">
-            <div class="glass-card mb-4 border-start border-tech-purple" style="border-left-width: 4px !important; padding: 1.5rem;">
-                <h6 class="fw-bold mb-3 small opacity-75">SYSTEM ALERTS</h6>
-            </div>
-        </div>
-    </div>
-</main>
+            <div class="glass-card p-4 border-0" style="background: #1a1a1e;">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="avatar-placeholder bg-dark d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; font-size: 1.5rem; border-radius: 10px;">
+                        <i class="bi bi-person-plus-fill" style="color: var(--tech-purple);"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold m-0" style="font-size: 1rem;">Nuevo Registro</h5>
+                        <small class="text-muted-custom">MODULE 03</small>
+                    </div>
+                </div>
 
-<div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="borrarModaLabel" aria-hidden="true">
-    <div class="modal-dialog glass-card ">
-        <div class="modal-content glass-card ">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5 text-light" id="borrarModalLabel">Seguro que quieres borrar?</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted-custom fw-bold">NOMBRE LIBRO</label>
+                        <input type="text" class="form-control bg-dark border-0 text-white p-2" placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted-custom fw-bold">AUTOR</label>
+                        <input type="email" class="form-control bg-dark border-0 text-white p-2" placeholder="juan@example.com">
+                    </div>
+                        
+                    <div class="row g-2 mb-4">
+                        <div class="col-12 mb-2">
+                            <label class="form-label small text-muted-custom fw-bold">CATEGORÍA</label>
+                            <select class="form-select bg-dark border-0 text-white p-2">
+                                <option>Estudiante</option>
+                                <option>Docente</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small text-muted-custom fw-bold">ESTADO INICIAL</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="color: var(--tech-green);">●</span> <small class="text-white">Disponible</small>
+                            </div>
+                            <div class="mt-2">
+                                <select class="form-select bg-dark border-0 text-white p-2">
+                                    <option>Disponible</option>
+                                    <option>Prestado</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-confirm-glow w-100 py-3 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-save2"></i> CONFIRMAR
+                        </button>
+                        <p class="text-center mt-3" style="font-size: 0.6rem; color: #666; letter-spacing: 1px; text-transform: uppercase;">
+                            Cifrado de datos activo
+                        </p>
+                    </form>
+                </div>
+            </div> 
+        </div> 
+    </main>
+
+<div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="borrarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card bg-dark text-white">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="borrarModalLabel">¿Confirmar eliminación?</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>SI BORRAS ESTE USUARIO MAS ADELANTE NO PODRAS RECUPERAR LA INFORMACION GUARDADA</p>
+                <p class="mb-0">Esta acción es irreversible. Se perderá toda la información del registro seleccionado.</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Save changes</button>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger">Eliminar permanentemente</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModaLabel" aria-hidden="true">
-    <div class="modal-dialog glass-card ">
-        <div class="modal-content glass-card ">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5 text-warning" id="editarModalLabel">EDITANDO USUARIO</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card bg-dark text-white">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title text-warning" id="editarModalLabel">Editando Información</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>SI BORRAS ESTE USUARIO MAS ADELANTE NO PODRAS RECUPERAR LA INFORMACION GUARDADA</p>
+                <p>Cargando datos del registro...</p>
+                
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Save changes</button>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-warning text-dark fw-bold">Guardar Cambios</button>
             </div>
         </div>
     </div>
