@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Data;
 using Proyecto.Models;
+using Proyecto.Response;
 using Proyecto.Services.Interfaces;
+using FluentValidation;
+using Proyecto.Validators;
 
 namespace Proyecto.Services;
 
@@ -10,10 +13,12 @@ public class UserService : IUserServices
     // creamos un metodo privado para que mientras el programa este en ejecucion este no puede ser editado
     // donde vamos a traer los parametros del db context
     private readonly MySqlDbContext _context;
+    private readonly IValidator<Users> _userValidator;
 
-    public UserService(MySqlDbContext context)
+    public UserService(MySqlDbContext context, UserValidators userValidator)
     {
         _context = context;
+        _userValidator = userValidator;
     }
 
     public async Task<ServiceResponse<IEnumerable<Users>>> GetAllUsers()
@@ -31,7 +36,7 @@ public class UserService : IUserServices
     {
         //llamamos a la respuesta de la db que contiene los parametros del modelo y le pasamos
         // nuestros modelos dentro de este
-        var response = new ServiceResponse<Users>();
+        var response = new ServiceResponse<Users?>();
         
         //que nos traiga usuario por ID pero que espere hasta que este se encuentre antes de ejecutarse
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
@@ -57,17 +62,26 @@ public class UserService : IUserServices
     public async Task<ServiceResponse<Users>> Update(Users userEditar, int id)
     {
         var response = new ServiceResponse<Users>();
-        var idExiste = await _context.Users.FindAsync(userEditar.Id);
+        var validation = await _userValidator.ValidateAsync(userEditar);
+        if (!validation.IsValid)
+        {
+            response.Success = false;
+            response.Message = string.Join(" | ", validation.Errors.Select(x => x.ErrorMessage));
+            return response;
+        }
+        
+        var idExiste = await _context.Users.FindAsync(id);
 
         if (idExiste == null)
         {
             response.Success = false;
-            response.Message = "User Not Found";
+            response.Message = "This user does not exist";
             return response;
         }
         else
         {
             idExiste.Name = userEditar.Name;
+            idExiste.LastName = userEditar.LastName;
             idExiste.Email = userEditar.Email;
             idExiste.Status = userEditar.Status;
             
@@ -85,6 +99,13 @@ public class UserService : IUserServices
     public async Task<ServiceResponse<Users>> Create(Users userCrear)
     {
         var response = new ServiceResponse<Users>();
+        var validation = await _userValidator.ValidateAsync(userCrear);
+        if (!validation.IsValid)
+        {
+            response.Success = false;
+            response.Message = string.Join(" | ", validation.Errors.Select(x => x.ErrorMessage));
+            return response;
+        }
         var correoExiste = await _context.Users.FirstOrDefaultAsync(e => e.Email == userCrear.Email);
 
         if (correoExiste != null)
@@ -104,10 +125,10 @@ public class UserService : IUserServices
         }
     }
 
-    public async Task<ServiceResponse<Users?>> Delete(Users userBorrar, int id)
+    public async Task<ServiceResponse<Users?>> Delete(int id)
     {
-        var response = new ServiceResponse<Users>();
-        var userExits = await _context.Users.FindAsync(userBorrar.Id);
+        var response = new ServiceResponse<Users?>();
+        var userExits = await _context.Users.FindAsync(id);
 
         if (userExits == null)
         {

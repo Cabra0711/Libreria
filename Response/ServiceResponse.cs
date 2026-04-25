@@ -1,6 +1,4 @@
-using Proyecto.Models;
-
-namespace Proyecto.Services;
+namespace Proyecto.Response;
 
 public class ServiceResponse<T>
 {

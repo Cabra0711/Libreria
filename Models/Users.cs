@@ -5,6 +5,7 @@ namespace Proyecto.Models;
 public class Users : BaseEntity
 {
     public string Name { get; set; }
+    public string LastName { get; set; }
     public string Email { get; set; }
  
     public UserEnums Status { get; set; }

@@ -1,4 +1,5 @@
 using Proyecto.Models;
+using Proyecto.Response;
 
 namespace Proyecto.Services.Interfaces;
 
@@ -15,5 +16,5 @@ public interface IUserServices
     // ponemos ID para que el forntend no tenga problemas al momento de traer todos estos parametros y se quede congelado volvemos la pagina mas eficiente
     public Task<ServiceResponse<Users>> Update(Users userEditar, int id);
     public Task<ServiceResponse<Users>> Create(Users userCrear);
-    public Task<ServiceResponse<Users?>> Delete(Users userBorrar, int id);
+    public Task<ServiceResponse<Users?>> Delete(int id);
 }

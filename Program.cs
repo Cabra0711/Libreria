@@ -2,12 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using Proyecto.Data;
 using Proyecto.Services;
 using Proyecto.Services.Interfaces;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddScoped<IUserServices, UserService>();
+builder.Services.AddScoped<IBookServices, BookService>();
+builder.Services.AddScoped<ILoanServices, LoansService>();
 
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 builder.Services.AddDbContext<MySqlDbContext>(options => 
