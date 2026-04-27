@@ -14,7 +14,7 @@ public interface IUserServices
     public Task<ServiceResponse<Users?>> GetUserById(int id);
     // Llamamos al modelo que vamos a Editar y le ponemos el Service Response para que trabaje con estos parametros y asi con el resto
     // ponemos ID para que el forntend no tenga problemas al momento de traer todos estos parametros y se quede congelado volvemos la pagina mas eficiente
-    public Task<ServiceResponse<Users>> Update(Users userEditar, int id);
+    public Task<ServiceResponse<Users>> Update(int id, Users userEditar );
     public Task<ServiceResponse<Users>> Create(Users userCrear);
     public Task<ServiceResponse<Users?>> Delete(int id);
 }

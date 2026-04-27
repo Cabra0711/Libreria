@@ -1,3 +1,6 @@
+@using System.Collections
+@model Proyecto.Response.ServiceResponse<IEnumerable<Loans>>
+
 <main class="flex-grow-1" style="margin-left: 240px; padding: 2rem;">
     <div class="mb-5">
         <div class="d-flex align-items-center gap-2 mb-2">
@@ -7,16 +10,11 @@
         <div class="d-flex justify-content-between align-items-end">
             <div>
                 <h1 class="fw-bold mb-1">Prestamos</h1>
-                <p class="text-muted small">Monitor library circulation, track due dates, and manage new book assignments through the high-performance node interface.</p>
             </div>
             <div class="d-flex gap-3">
                 <div class="glass-card p-3 d-flex align-items-center gap-3">
                     <div class="small text-muted">Prestamos Activos</div>
-                    <h3 class="fw-bold m-0" style="color: var(--tech-purple);">1,284</h3>
-                </div>
-                <div class="glass-card p-3 d-flex align-items-center gap-3">
-                    <div class="small text-muted">Retrasados</div>
-                    <h3 class="fw-bold m-0" style="color: var(--tech-red);">12</h3>
+                    <h3 class="fw-bold m-0" style="color: var(--tech-purple);">@Model.Data.Count()</h3>
                 </div>
             </div>
         </div>
@@ -30,11 +28,16 @@
                     <i class="bi bi-plus-circle-fill" style="color: var(--tech-green); font-size: 1.5rem;"></i>
                 </div>
 
-                <form>
+                <form asp-action="CreateLoan" method="post">
                     <div class="mb-4">
                         <label class="form-label small text-muted-custom fw-bold">SELECCIONAR USUARIO</label>
                         <div class="input-group">
-                            <input type="text" class="form-control bg-dark border-0 text-white" placeholder="Search by name or ID...">
+                                <select name="UserId" class="form-select bg-dark border-0 text-white">
+                                    @foreach (var users in ViewBag.Users as IEnumerable<Proyecto.Models.Users>)
+                                    { 
+                                        <option value="@users.Id">@users.Name @users.LastName</option>
+                                    }
+                                </select>    
                             <span class="input-group-text bg-dark border-0 text-muted"><i class="bi bi-chevron-down"></i></span>
                         </div>
                     </div>
@@ -42,7 +45,12 @@
                     <div class="mb-4">
                         <label class="form-label small text-muted-custom fw-bold">SELECCIONAR LIBRO</label>
                         <div class="input-group">
-                            <input type="text" class="form-control bg-dark border-0 text-white" placeholder="Title or ISBN...">
+                            <select name="BookId" class="form-select bg-dark border-0 text-white">
+                                @foreach (var books in ViewBag.Books as IEnumerable<Proyecto.Models.Books>)
+                                {
+                                    <option value="@books.Id">@books.Name</option>
+                                }
+                            </select>
                             <span class="input-group-text bg-dark border-0 text-muted"><i class="bi bi-chevron-down"></i></span>
                         </div>
                     </div>
@@ -50,11 +58,11 @@
                     <div class="row g-3 mb-5">
                         <div class="col-6">
                             <label class="form-label small text-muted-custom fw-bold">FECHA PRESTAMO</label>
-                            <input type="date" class="form-control bg-dark border-0 text-white small" value="2026-04-22">
+                            <input name="Date" type="date" class="form-control bg-dark border-0 text-white small" value="2026-04-22">
                         </div>
                         <div class="col-6">
                             <label class="form-label small text-muted-custom fw-bold">FECHA ENTREGA</label>
-                            <input type="date" class="form-control bg-dark border-0 text-white small">
+                            <input name="DeliveryDate" type="date" class="form-control bg-dark border-0 text-white small">
                         </div>
                     </div>
 
@@ -81,43 +89,63 @@
                             <th>TITULO LIBRO</th>
                             <th>FECHA PRESTAMO</th>
                             <th>FECHA DE ENTREGA</th>
+                            <th>ACCION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="ps-4">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="avatar-sm bg-info bg-opacity-10 text-info">MC</div>
-                                    <div>
-                                        <div class="fw-bold small">Marcus Chen</div>
-                                        <small class="text-muted" style="font-size: 0.65rem;">ID: USR-415</small>
+                        @foreach (var loan in Model.Data)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-sm bg-info bg-opacity-10 text-info">MC</div>
+                                        <div>
+                                            <div class="fw-bold small">@loan.User.Name @loan.User.LastName</div>
+                                            <small class="text-muted" style="font-size: 0.65rem;">ID: @loan.UserId</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold small">@loan.Book.Name</div>
+                                    <small class="text-muted" style="font-size: 0.65rem;">ID LIBRO: @loan.BookId</small>
+                                </td>
+                                <td class="small">@loan.Date</td>
+                                <td class="small">@loan.DeliveryDate</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#infoModal-@loan.Id"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                             <div class="modal fade" id="infoModal-@loan.Id" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border-0 glass-card bg-dark text-white">
+                                        <div class="modal-header border-secondary">
+                                            <h5 class="modal-title fw-bold">Detalles del Sistema</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body p-4">
+                                            <div class="d-flex align-items-center gap-3 mb-4">
+                                                <div class="avatar-placeholder" style="width:60px; height:60px; font-size: 2rem;"><i class="bi bi-person-fill"></i></div>
+                                                <div>
+                                                    <h4 class="m-0 fw-bold">@loan.User.Name @loan.User.LastName</h4>
+                                                    <span class="text-muted">ID: @loan.User.Id</span>
+                                                </div>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item bg-transparent text-white border-secondary small"><strong>EMAIL:</strong> @loan.User.Email</li>
+                                                <li class="list-group-item bg-transparent text-white border-secondary small"><strong>FECHA REGISTRO:</strong> @loan.User.CreatedAt</li>
+                                                <li class="list-group-item bg-transparent text-white border-secondary small"><strong>ROL ACTUAL:</strong> @loan.User.Status</li>
+                                            </ul>
+                                            <div class="modal-footer border-0">
+                                                <form asp-action="ReturnLoan" method="post">
+                                                    <input type="hidden" name="id" value="@loan.Id" />
+                                                    <button type="submit" class="btn btn-confirm-glow">LIBERAR PRESTAMO</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="fw-bold small">Neuromancer: 40th Ann...</div>
-                                <small class="text-muted" style="font-size: 0.65rem;">ISBN: 978-0441569595</small>
-                            </td>
-                            <td class="small">Oct 12, 2023</td>
-                            <td class="small">Oct 26, 2023</td>
-                        </tr>
-                        <tr>
-                            <td class="ps-4">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="avatar-sm bg-purple bg-opacity-10 text-purple">SJ</div>
-                                    <div>
-                                        <div class="fw-bold small">Sarah Jenkins</div>
-                                        <small class="text-muted" style="font-size: 0.65rem;">ID: USR-109</small>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="fw-bold small">Architecture of Tomorrow</div>
-                                <small class="text-muted" style="font-size: 0.65rem;">ISBN: 978-1423456789</small>
-                            </td>
-                            <td class="small">Oct 05, 2023</td>
-                            <td class="small text-danger fw-bold">Oct 19, 2023</td>
-                        </tr>
+                            </div>
+                        }
                     </tbody>
                 </table>
                 <div class="p-3 text-center border-top border-secondary border-opacity-25">

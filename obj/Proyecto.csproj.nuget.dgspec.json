@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/cohorte6/Documentos/Libreria/Proyecto.csproj": {}
+    "C:\\Users\\user\\Documents\\Libreria\\Proyecto.csproj": {}
   },
   "projects": {
-    "/home/cohorte6/Documentos/Libreria/Proyecto.csproj": {
+    "C:\\Users\\user\\Documents\\Libreria\\Proyecto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/cohorte6/Documentos/Libreria/Proyecto.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\Libreria\\Proyecto.csproj",
         "projectName": "Proyecto",
-        "projectPath": "/home/cohorte6/Documentos/Libreria/Proyecto.csproj",
-        "packagesPath": "/home/cohorte6/.nuget/packages/",
-        "outputPath": "/home/cohorte6/Documentos/Libreria/obj/",
+        "projectPath": "C:\\Users\\user\\Documents\\Libreria\\Proyecto.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Documents\\Libreria\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/cohorte6/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0": {
@@ -80,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/cohorte6/.dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

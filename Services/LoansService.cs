@@ -51,7 +51,7 @@ public class LoansService : ILoanServices
         }
     }
 
-    public async Task<ServiceResponse<Loans>> Create(Loans prestamoCrear)
+    public async Task<ServiceResponse<Loans>> CreateLoan(Loans prestamoCrear)
     {
         var response = new ServiceResponse<Loans>();
         var validation = await _loansValidator.ValidateAsync(prestamoCrear);
@@ -144,6 +144,29 @@ public class LoansService : ILoanServices
         }
         return response;
     }
-    
+
+    public async Task<ServiceResponse<Loans>> ReturnLoan(int id)
+    {
+        var response = new ServiceResponse<Loans>();
+        var loan = await _context.Loans.FindAsync(id);
+        var book = await _context.Books.FindAsync(loan.BookId);
+        if (loan == null)
+        {
+            response.Success = false;
+            response.Message = "Loan not found";
+            return response;
+        }
+
+        if (book != null)
+        {
+            book.Status = BookStatus.Available;
+            _context.Loans.Remove(loan);
+            await _context.SaveChangesAsync();
+            
+            response.Success = true;
+            response.Message = "Loan deleted";
+        }
+        return response;
+    }
     
 }

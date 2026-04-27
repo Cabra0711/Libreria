@@ -59,7 +59,7 @@ public class UserService : IUserServices
         }
     }
     
-    public async Task<ServiceResponse<Users>> Update(Users userEditar, int id)
+    public async Task<ServiceResponse<Users>> Update(int id, Users userEditar)
     {
         var response = new ServiceResponse<Users>();
         var validation = await _userValidator.ValidateAsync(userEditar);

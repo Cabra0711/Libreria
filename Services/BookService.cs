@@ -17,8 +17,8 @@ public class BookService : IBookServices
      * de poder usar mas adelante metodos async
      */
     private readonly MySqlDbContext _context;
-    private readonly BookValidators _bookValidator;
-    public BookService(MySqlDbContext context,  BookValidators bookValidator)
+    private readonly IValidator<Books> _bookValidator;
+    public BookService(MySqlDbContext context, IValidator<Books> bookValidator)
     {
         _context = context;
         _bookValidator = bookValidator;
@@ -73,7 +73,7 @@ public class BookService : IBookServices
     /*
      * Aca dentro llamamos al modelo y al ID para traer los parametros dentro este modelo + el ID de este para saber que tipo de libro estamos editando
      */
-    public async Task<ServiceResponse<Books>> Update(Books libroEditar, int id)
+    public async Task<ServiceResponse<Books>> Update( int id, Books libroEditar)
     {
         // en este caso usamos findAsync porque nos resulta mas comodo al momento de trabajar con solamente un ID 
         var response = new ServiceResponse<Books>();
@@ -110,7 +110,7 @@ public class BookService : IBookServices
         
     }
     // llamamos al modelo para que irterprete nuestros parametros que estamos asignando con el fin de mandar estos datos a la DB
-    public async Task<ServiceResponse<Books>> Create(Books libroCrear)
+    public async Task<ServiceResponse<Books>> CreateBook(Books libroCrear)
     {
         var response = new ServiceResponse<Books>();
         var validation = await _bookValidator.ValidateAsync(libroCrear);

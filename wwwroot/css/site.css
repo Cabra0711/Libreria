@@ -253,3 +253,72 @@ p, span, label {
   font-size: 0.75rem;
   font-weight: bold;
 }
+
+.sidebar-tech {
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  background-color: var(--tech-sidebar) !important;
+  border-right: 1px solid var(--tech-border);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+@media (max-width: 992px) {
+  .sidebar-tech {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid var(--tech-border);
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 5px;
+  }
+
+  main[style*="margin-left: 240px"] {
+    margin-left: 0 !important;
+    padding: 1rem !important;
+  }
+
+  .nav-link-tech {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+  }
+
+  .table-tech-v2,
+  .table-tech-v2 thead,
+  .table-tech-v2 tbody,
+  .table-tech-v2 th,
+  .table-tech-v2 td,
+  .table-tech-v2 tr {
+    display: block;
+    width: 100%;
+  }
+
+  .table-tech-v2 thead {
+    display: none;
+  }
+
+  .table-tech-v2 tbody tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--tech-border);
+    border-radius: 12px;
+  }
+
+  .table-tech-v2 tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid var(--tech-border) !important;
+  }
+
+  .table-tech-v2 tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: var(--tech-text-muted);
+    font-size: 0.7rem;
+  }
+}

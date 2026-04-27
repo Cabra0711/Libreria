@@ -1,8 +1,10 @@
+@model Proyecto.Response.ServiceResponse<IEnumerable<Books>>
+
 <main class="flex-grow-1" style="margin-left: 240px; padding: 2rem;">
     <div class="d-flex justify-content-between align-items-center mb-5">
         <div>
             <h1 class="fw-bold mb-0">INVENTARIO DE LIBROS</h1>
-            <p class="text-muted small">Archivo global :: 2,481 volumenes totales</p>
+            <p class="text-muted small">Archivo global :: @Model.Data.Count() volumenes totales</p>
         </div>
         <div class="d-flex gap-3 align-items-center">
             <div class="position-relative">
@@ -17,7 +19,7 @@
             <div class="row g-3 mb-4">
                 <div class="col-md-4"> <div class="glass-card text-center p-3">
                         <small class="text-muted d-block mb-1">LIBROS EN STOCK</small>
-                        <h3 class="fw-bold m-0">1,842</h3>
+                        <h3 class="fw-bold m-0">@Model.Data.Count()</h3>
                     </div>
                 </div>
             </div>
@@ -43,6 +45,8 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach (var book in Model.Data)
+                    {
                         <tr>
                             <td class="ps-4">
                                 <div class="d-flex align-items-center gap-3">
@@ -50,24 +54,118 @@
                                         <i class="bi bi-book" style="color: var(--tech-blue);"></i>
                                     </div>
                                     <div>
-                                        <div class="book-title-link">Neuromancer</div>
-                                        <small class="text-muted">Science Fiction</small>
+                                        <div class="book-title-link">@book.Name</div>
+                                        <small class="text-muted">@book.Category</small>
                                     </div>
                                 </div>
                             </td>
-                            <td><div class="book-title-link">William Gibson</div></td>
-                            <td class="isbn-text small">978-0441569595</td>
-                            <td><span class="badge rounded-pill badge-tech badge-available">● DISPONIBLE</span></td>
+                            <td><div class="book-title-link">@book.Author</div></td>
+                            <td class="isbn-text small">@book.Id</td>
+                            <td><span class="badge rounded-pill badge-tech badge-available">● @(book.Status.ToString())</span></td>
                             <td class="text-end pe-4">
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#borrarModal">
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#borrarModal-@book.Id">
                                     <i class="bi bi-trash"></i>
                                 </button>
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarModal">
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarModal-@book.Id">
                                     <i class="bi bi-pencil"></i>
                                 </button>
-                                <button class="btn btn-info btn-sm"><i class="bi bi-info-circle"></i></button>
+                                <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#infoModal-@book.Id"><i class="bi bi-info-circle"></i></button>
                             </td>
                         </tr>
+                        <div class="modal fade" id="borrarModal-@book.Id" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0 glass-card bg-dark text-white">
+                                    <div class="modal-header border-secondary">
+                                        <h5 class="modal-title fw-bold">Confirmar Eliminación</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body text-center p-4">
+                                        <i class="bi bi-exclamation-triangle text-danger" style="font-size: 3rem;"></i>
+                                        <p class="mt-3">¿Estás seguro de eliminar al usuario <strong>@book.Name @book.Author</strong>?</p>
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+                                        <form asp-action="DeleteBook" asp-route-id="@book.Id" method="post">
+                                            <button type="submit" class="btn btn-danger">Eliminar Registro</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal fade" id="editarModal-@book.Id" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border-0 glass-card bg-dark text-white">
+                                        <div class="modal-header border-secondary">
+                                            <h5 class="modal-title fw-bold">Editar Usuario</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <form asp-action="EditBook" method="post">
+                                            <input type="hidden" name="Id" value="@book.Id" />
+                                            <div class="modal-body p-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label small text-muted-custom fw-bold">NOMBRE</label>
+                                                    <input name="Name" class="form-control bg-dark border-secondary text-white" value="@book.Name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label small text-muted-custom fw-bold">Autor</label>
+                                                    <input name="Author" class="form-control bg-dark border-secondary text-white" value="@book.Author">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label small text-muted-custom fw-bold">Categoria</label>
+                                                    <select name="Category" class="form-select bg-dark border-0 text-white p-2">
+                                                        <option value="0">Ficcion</option>
+                                                        <option value="1">NonFiction</option>
+                                                        <option value="2">Mystery</option>
+                                                        <option value="3">Romance</option>
+                                                        <option value="4">Biography</option>
+                                                        <option value="5">Fantasy</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label small text-muted-custom fw-bold">ESTADO</label>
+                                                    <select name="Status" class="form-select bg-dark border-0 text-white p-2">
+                                                        <option value="0">Disponible</option>
+                                                        <option value="1">No Disponible</option>
+                                                        <option value="2">Prestado</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-0">
+                                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-confirm-glow">Guardar Cambios</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="modal fade" id="infoModal-@book.Id" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border-0 glass-card bg-dark text-white">
+                                        <div class="modal-header border-secondary">
+                                            <h5 class="modal-title fw-bold">Detalles del Sistema</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body p-4">
+                                            <div class="d-flex align-items-center gap-3 mb-4">
+                                                <div class="avatar-placeholder" style="width:60px; height:60px; font-size: 2rem;"><i class="bi bi-person-fill"></i></div>
+                                                <div>
+                                                    <h4 class="m-0 fw-bold">@book.Name</h4>
+                                                    <span class="text-muted">ID: @book.Id</span>
+                                                </div>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item bg-transparent text-white border-secondary small"><strong>Autor:</strong> @book.Author</li>
+                                                <li class="list-group-item bg-transparent text-white border-secondary small"><strong>FECHA REGISTRO:</strong> @book.CreatedAt</li>
+                                                <li class="list-group-item bg-transparent text-white border-secondary small"><strong>ESTADO ACTUAL:</strong> @book.Status</li>
+                                                <li class="list-group-item bg-transparent text-white border-secondary small"><strong>ULTIMA EDICION:</strong> @book.UpdatedAt</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    }
                     </tbody>
                 </table>
             </div>
@@ -85,22 +183,26 @@
                     </div>
                 </div>
 
-                <form>
+                <form asp-action="CreateBook" method="post">
                     <div class="mb-3">
                         <label class="form-label small text-muted-custom fw-bold">NOMBRE LIBRO</label>
-                        <input type="text" class="form-control bg-dark border-0 text-white p-2" placeholder="Ej: Juan Pérez">
+                        <input name="Name" type="text" class="form-control bg-dark border-0 text-white p-2" placeholder="Ej: Juan Pérez">
                     </div>
                     <div class="mb-3">
                         <label class="form-label small text-muted-custom fw-bold">AUTOR</label>
-                        <input type="email" class="form-control bg-dark border-0 text-white p-2" placeholder="juan@example.com">
+                        <input name="Author" type="text" class="form-control bg-dark border-0 text-white p-2" placeholder="Gabriel Garcia Marquez">
                     </div>
                         
                     <div class="row g-2 mb-4">
                         <div class="col-12 mb-2">
                             <label class="form-label small text-muted-custom fw-bold">CATEGORÍA</label>
-                            <select class="form-select bg-dark border-0 text-white p-2">
-                                <option>Estudiante</option>
-                                <option>Docente</option>
+                            <select name="Category" class="form-select bg-dark border-0 text-white p-2">
+                                <option value="0">Ficcion</option>
+                                <option value="1">NonFiction</option>
+                                <option value="2">Mystery</option>
+                                <option value="3">Romance</option>
+                                <option value="4">Biography</option>
+                                <option value="5">Fantasy</option>
                             </select>
                         </div>
                         <div class="col-12">
@@ -109,9 +211,10 @@
                                 <span style="color: var(--tech-green);">●</span> <small class="text-white">Disponible</small>
                             </div>
                             <div class="mt-2">
-                                <select class="form-select bg-dark border-0 text-white p-2">
-                                    <option>Disponible</option>
-                                    <option>Prestado</option>
+                                <select name="Status" class="form-select bg-dark border-0 text-white p-2">
+                                    <option value="0">Disponible</option>
+                                    <option value="1">No Disponible</option>
+                                    <option value="2">Prestado</option>
                                 </select>
                                 </div>
                             </div>
@@ -128,40 +231,3 @@
             </div> 
         </div> 
     </main>
-
-<div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="borrarModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content glass-card bg-dark text-white">
-            <div class="modal-header border-secondary">
-                <h5 class="modal-title" id="borrarModalLabel">¿Confirmar eliminación?</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0">Esta acción es irreversible. Se perderá toda la información del registro seleccionado.</p>
-            </div>
-            <div class="modal-footer border-secondary">
-                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Eliminar permanentemente</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content glass-card bg-dark text-white">
-            <div class="modal-header border-secondary">
-                <h5 class="modal-title text-warning" id="editarModalLabel">Editando Información</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Cargando datos del registro...</p>
-                
-            </div>
-            <div class="modal-footer border-secondary">
-                <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-warning text-dark fw-bold">Guardar Cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
